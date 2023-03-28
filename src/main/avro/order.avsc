@@ -39,6 +39,10 @@
             {
               "name": "itemQuantity",
               "type": "int"
+            },
+            {
+              "name": "itemPrice",
+              "type": "double"
             }
           ]
         }

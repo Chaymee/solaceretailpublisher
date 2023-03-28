@@ -22,7 +22,8 @@ public class SolaceretailpublisherApplication {
 	static class Runner implements CommandLineRunner {
 		private static final Logger logger = LoggerFactory.getLogger(Runner.class);
 
-		private final Topic topic = JCSMPFactory.onlyInstance().createTopic("solace.sample.retail.store.new.order");
+		//private final Topic topic = JCSMPFactory.onlyInstance().createTopic("solace.sample.retail.store.new.order");
+		private final Topic topic = JCSMPFactory.onlyInstance().createTopic("inbound/for/snowflake/text");
 
 		@Autowired
 		private SpringJCSMPFactory solaceFactory;
