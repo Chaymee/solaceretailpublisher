@@ -23,7 +23,7 @@ public class SolaceretailpublisherApplication {
 		private static final Logger logger = LoggerFactory.getLogger(Runner.class);
 
 		//private final Topic topic = JCSMPFactory.onlyInstance().createTopic("solace.sample.retail.store.new.order");
-		private final Topic topic = JCSMPFactory.onlyInstance().createTopic("inbound/for/snowflake/text");
+		//private final Topic topic = JCSMPFactory.onlyInstance().createTopic("inbound/for/snowflake/text");
 
 		@Autowired
 		private SpringJCSMPFactory solaceFactory;
@@ -44,7 +44,9 @@ public class SolaceretailpublisherApplication {
 				BytesMessage jcsmpMsg = JCSMPFactory.onlyInstance().createMessage(BytesMessage.class);
 				jcsmpMsg.setData(serializer.serializeAvroOrderJSON(order.getOrder()));
 				jcsmpMsg.setDeliveryMode(DeliveryMode.PERSISTENT);
+				Topic topic = JCSMPFactory.onlyInstance().createTopic("retail/pos/" + order.getOrder().getStore().toLowerCase().replaceAll(" ", "_") + "/" + order.getOrder().getStoreSize());
 				logger.info("============= Sending " + order.getOrder());
+				logger.info("Over topic" + topic);
 				prod.send(jcsmpMsg, topic);
 				Thread.sleep(5000);
 			}
